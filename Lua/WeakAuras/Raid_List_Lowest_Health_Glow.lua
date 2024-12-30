@@ -33,7 +33,7 @@ end
 untrigger2 = function()
     return true
 end
- --
+
 
 -- ACTIONS
 -- On Init
@@ -41,9 +41,9 @@ end
 TEST WA IF TRIGGER BEFORE ADDON FRAME LOAD
 ADD MESSAGES
 DD MORE OPTIONS
-]] local UnitHealth,
-    UnitHealthMax,
-    WA_ClassColorName = UnitHealth, UnitHealthMax, WA_ClassColorName
+]]--
+
+local UnitHealth, UnitHealthMax, WA_ClassColorName = UnitHealth, UnitHealthMax, WA_ClassColorName
 local LCG = LibStub("LibCustomGlow-1.0")
 local LGF = LibStub("LibGetFrame-1.0")
 LGF.GetFrame("player") -- first call often returns nil, initializes lib cache
