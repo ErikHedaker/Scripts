@@ -25,7 +25,7 @@ trigger1_Name = function()
     end
 end
 
-trigger2_Events = PLAYER_ENTERING_WORLD, GROUP_ROSTER_UPDATE
+--PLAYER_ENTERING_WORLD, GROUP_ROSTER_UPDATE
 trigger2 = function()
     aura_env.RaidListRebuild()
     return false
@@ -220,12 +220,36 @@ end
 -- DEBUGGING
 aura_env.debug = {
     enabled = aura_env.config["DebugEnable"],
-    messagesMax = 5,
-    messages = {}
+    messages = {
+        array = {},
+        index = 1,
+        max = 5 --aura_env.confg["DebugMessagesMax"]
+
+    }
 }
 
+local ArrayIncrementOverwrite = function(message)
+    local array = aura_env.debug.messages.array
+    local index = aura_env.debug.messages.index
+    local max = aura_env.debug.messages.max
+
+    if #array < max then
+        for i = 1, max do
+            array[i] = {}
+        end
+    end
+
+    array[index] = message
+    index = (index % max) + 1
+end
+
 aura_env.debug.GenerateString = function()
-    local result = string.format("(%s)\n(%s)", aura_env.id, date("%a %b %d %H:%M:%S %Y"))
+    local result = string.format(
+        "(%s)\n(%s)\n(messages)\n%s\n\n",
+        aura_env.id,
+        date("%a %b %d %H:%M:%S %Y"),
+        table.concat(aura_env.debug.messages.array,"\n")
+    )
     local output = {}
 
     for i = 1, #statusENUM do
@@ -235,14 +259,28 @@ aura_env.debug.GenerateString = function()
     for i = 1, #aura_env.raidList do
         local unitObj = aura_env.raidList[i]
 
-        table.insert(output[unitObj.status], string.format("[%d] %s", unitObj.health, WA_ClassColorName(unitObj.id)))
+        table.insert(
+            output[unitObj.status],
+            string.format(
+                "[%d] %s",
+                unitObj.health,
+                WA_ClassColorName(unitObj.id)
+            )
+        )
     end
 
     for i = 1, #statusENUM do
         local array = output[i]
 
         if #array > 0 then
-            result = result .. string.format("\n\n(%s) num[%d]\n", statusENUM[i], #array) .. table.concat(array, "\n")
+            --result = result .. string.format("\n\n(%s) num[%d]\n", statusENUM[i], #array) .. table.concat(array, "\n")
+            result = string.format(
+                "%s\n\n(%s) num[%d]\n%s",
+                result,
+                statusENUM[i],
+                #array,
+                table.concat(array, "\n")
+            )
         end
     end
 

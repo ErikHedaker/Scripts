@@ -1,6 +1,13 @@
 #winget --upgrade all
 #Python (conda? pip?)
 #VSCode
+#ms-vscode.powershell
+#ironmansoftware.powershellprotools
+#tobysmith568.run-in-powershell
+#yinfei.luahelper
+#ms-python.debugpy
+#ms-python.python
+#ms-python.vscode-pylance
 winget install --id Git.Git --accept-package-agreements
 #$gitPath = Join-Path $env:USERPROFILE '\AppData\Local\Programs\Git\bin'
 $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
@@ -12,3 +19,4 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
 #git setup code
 #git fetch scripts
 #https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe
+#set chrome as default app? "C:\Program Files\Google\Chrome\Application\chrome.exe"
