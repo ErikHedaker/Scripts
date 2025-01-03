@@ -9,6 +9,9 @@
 #ms-python.python
 #ms-python.vscode-pylance
 winget install --id Git.Git --accept-package-agreements
+$cli7zURL = "https://www.7-zip.org/a/7zr.exe"
+$cli7zFile = "{0}/{1}" -f $env:USERPROFILE, [System.IO.Path]::GetFileName($url7z)
+Invoke-WebRequest -Uri $cli7zURL -OutFile $cli7zFile
 #$gitPath = Join-Path $env:USERPROFILE '\AppData\Local\Programs\Git\bin'
 $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH', 'User')
 #https://stackoverflow.com/questions/714877/setting-windows-powershell-environment-variables
